@@ -1,0 +1,134 @@
+openapi: 3.0.0
+info:
+  title: Technical Test API
+  version: 1.0.0
+  description: Local API server for the iOS technical test
+
+servers:
+  - url: http://localhost:8080
+
+paths:
+  /listings:
+    get:
+      summary: Get listings
+      description: Listings are returned in a stable feed envelope sorted with urgent items first, then by descending creation date.
+      parameters:
+        - name: page
+          in: query
+          schema: { type: integer }
+          description: Page number (1-based). Must be used with limit.
+        - name: limit
+          in: query
+          schema: { type: integer }
+          description: Items per page. Must be used with page.
+        - name: query
+          in: query
+          schema: { type: string }
+          description: Search term matched against title and description.
+      responses:
+        '200':
+          description: Listing feed response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListingFeed'
+              examples:
+                default:
+                  value:
+                    total: 300
+                    page: 1
+                    limit: 20
+                    has_more: true
+                    items:
+                      - id: 1461267313
+                        category_id: 4
+                        title: "Statue homme noir assis en platre polychrome"
+                        description: "Magnifique statuette en terre cuite et platre polychrome."
+                        price: 140.0
+                        creation_date: "2019-11-05T15:56:59Z"
+                        is_urgent: false
+                        images_url:
+                          small: "/images/ad-small/b044c1a3ff14881709f4a53722b754791a26bb0e.jpg"
+                          thumb: "/images/ad-thumb/b044c1a3ff14881709f4a53722b754791a26bb0e.jpg"
+        '400':
+          description: Invalid query parameters
+  /categories:
+    get:
+      summary: Get all categories
+      responses:
+        '200':
+          description: List of categories
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Category'
+              examples:
+                default:
+                  value:
+                    - id: 1
+                      name: "Vehicule"
+                    - id: 8
+                      name: "Multimedia"
+
+components:
+  schemas:
+    Listing:
+      type: object
+      required:
+        - id
+        - category_id
+        - title
+        - description
+        - price
+        - creation_date
+        - is_urgent
+        - images_url
+      properties:
+        id: { type: integer }
+        category_id: { type: integer }
+        title: { type: string }
+        description: { type: string }
+        price: { type: number }
+        creation_date: { type: string, format: date-time }
+        is_urgent: { type: boolean }
+        images_url:
+          $ref: '#/components/schemas/ImagesUrl'
+
+    ImagesUrl:
+      type: object
+      nullable: true
+      required:
+        - small
+        - thumb
+      properties:
+        small: { type: string, nullable: true }
+        thumb: { type: string, nullable: true }
+
+    ListingFeed:
+      type: object
+      required:
+        - total
+        - page
+        - limit
+        - has_more
+        - items
+      properties:
+        total: { type: integer }
+        page: { type: integer }
+        limit: { type: integer }
+        has_more: { type: boolean }
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Listing'
+
+    Category:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id: { type: integer }
+        name: { type: string }

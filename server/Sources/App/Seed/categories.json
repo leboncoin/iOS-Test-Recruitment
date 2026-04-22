@@ -1,0 +1,46 @@
+[
+  {
+    "id": 1,
+    "name": "Véhicule"
+  },
+  {
+    "id": 2,
+    "name": "Mode"
+  },
+  {
+    "id": 3,
+    "name": "Bricolage"
+  },
+  {
+    "id": 4,
+    "name": "Maison"
+  },
+  {
+    "id": 5,
+    "name": "Loisirs"
+  },
+  {
+    "id": 6,
+    "name": "Immobilier"
+  },
+  {
+    "id": 7,
+    "name": "Livres/CD/DVD"
+  },
+  {
+    "id": 8,
+    "name": "Multimédia"
+  },
+  {
+    "id": 9,
+    "name": "Service"
+  },
+  {
+    "id": 10,
+    "name": "Animaux"
+  },
+  {
+    "id": 11,
+    "name": "Enfants"
+  }
+]
