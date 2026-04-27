@@ -20,7 +20,7 @@ Your submission must include:
 
 - a runnable iOS app on the `main` branch
 - a `REFLECTION.md` file at the repository root
-- a short note in `REFLECTION.md` describing any assumptions you made about the API or prompt
+- a short note in `REFLECTION.md` describing any assumptions you made about the API or prompt see the AI Usage section for all the details
 
 ## Review Process
 
